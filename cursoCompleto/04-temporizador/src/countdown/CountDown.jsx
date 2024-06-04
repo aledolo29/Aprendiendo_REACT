@@ -29,16 +29,24 @@ function CountDown() {
     setSeconds(s);
   }
 
-  if (elapsedSeconds > seconds) {
-    return <p>El tiempo ha finalizado</p>;
+  if (elapsedSeconds >= seconds && seconds !== null) {
+    return (
+      <div>
+        <p>El tiempo ha finalizado</p>
+        <button
+          onClick={() => {
+            setSeconds(null);
+            setElapsedSeconds(0);
+          }}
+        >
+          Reiniciar
+        </button>
+      </div>
+    );
   }
 
   if (seconds !== null) {
-    return (
-      <p>
-        Contador de {seconds} segundos. Lleva {elapsedSeconds} segundos
-      </p>
-    );
+    return <p>Quedan {seconds - elapsedSeconds} segundos</p>;
   }
   return (
     <div>
