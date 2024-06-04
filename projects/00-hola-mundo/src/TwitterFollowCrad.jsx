@@ -2,9 +2,12 @@ import { useState } from "react";
 export function TwitterFollowCard({
   // formattedUserName, --> ELEMENTO
   // formatUserName, // --> COMPONENTE
+  // eslint-disable-next-line react/prop-types
   userName = "unknown",
   // name,
+  // eslint-disable-next-line react/prop-types
   initialIsFollowing,
+  // eslint-disable-next-line react/prop-types
   children,
 }) {
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
