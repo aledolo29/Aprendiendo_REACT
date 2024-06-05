@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Field, Form, Formik, ErrorMessage } from "formik";
 function AppForm() {
   return (
@@ -21,8 +22,28 @@ function AppForm() {
         }
         return errors;
       }}
-      onSubmit={(values) => {
-        console.log(values);
+      onSubmit={(values, { setSubmitting }) => {
+        let url = "https://formspree.io/f/xoqgopzz";
+        let formData = new FormData();
+        formData.append("name", values.name);
+        formData.append("email", values.email);
+        formData.append("message", values.message);
+
+        fetch(url, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        }).then((response) => {
+          if (response.ok) {
+            alert("Mensaje enviado correctamente");
+            setSubmitting(false);
+          } else {
+            alert("Error al enviar el mensaje");
+            setSubmitting(false);
+          }
+        });
       }}
     >
       {({ isSubmitting, values }) => (
@@ -43,7 +64,9 @@ function AppForm() {
             <ErrorMessage name="message" component="div" />
           </div>
           <div>
-            <button type="submit">Enviar mensaje</button>
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Enviando" : "Enviar mensaje"}
+            </button>
           </div>
         </Form>
       )}
